@@ -50,6 +50,7 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <mainClass>classes.sketchDector.HelloApp</mainClass>
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
