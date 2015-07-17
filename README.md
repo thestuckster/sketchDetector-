@@ -1,7 +1,7 @@
 # Sketch Detector
 
 ## Dependencies
-**The code for the backend requires Java 1.8 or JDK8 to be installed.** Please install it like you would any other JDK.
+**The code for the backend requires Java 1.8 or JDK8 to be installed and set as your default.** Please install it like you would any other JDK.
 
 The backend code is built (compiled) with Maven. Maven can be installed [here](https://maven.apache.org/download.cgi). Or by
 
