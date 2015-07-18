@@ -21,12 +21,16 @@ public class Scraper {
         return this.url;
     }
 
-    public String scrape() {
+    public String getSource() {
+        scrape();
+        return this.source;
+    }
+
+    private void scrape() {
         String line;
 
-        if(this.url.equals("")) {
+        if (this.url.equals("")) {
             this.source = "no url given";
-            return this.source;
         }
 
         try {
@@ -58,6 +62,5 @@ public class Scraper {
             e.printStackTrace();
         }
 
-        return this.source;
     }
 }
