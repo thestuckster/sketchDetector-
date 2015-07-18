@@ -1,30 +1,63 @@
+package hello;
+
 import java.io.*;
 import java.net.*;
 
 public class Scraper {
-  public static String httpGet(String urlStr) throws IOException {
-    URL url = new URL(urlStr);
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    private final long id;
+    private final String url;
+    private String source;
 
-    if (conn.getResponseCode() != 200) {
-      throw new IOException(conn.getResponseMessage());
+    public Scraper(long id, String url) {
+        this.id = id;
+        this.url = url;
     }
 
-    // Buffer the result into a string
-    BufferedReader rd = new BufferedReader(new InputStreamReader(
-        conn.getInputStream()));
-    StringBuilder sb = new StringBuilder();
-    String line;
-    while ((line = rd.readLine()) != null) {
-      sb.append(line);
+    public long getId() {
+        return this.id;
     }
-    rd.close();
-    conn.disconnect();
-    return sb.toString();
-  }
 
-  public static void main(String[] args) throws IOException {
+    public String getUrl() {
+        return this.url;
+    }
 
-    System.out.println(Scraper.httpGet(args[0]));
-  }
+    public String scrape() {
+        String line;
+
+        if(this.url.equals("")) {
+            this.source = "no url given";
+            return this.source;
+        }
+
+        try {
+            URL url = new URL(this.url);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            if (conn.getResponseCode() != 200) {
+                this.source = "bad connection to site";
+            }
+
+            //buffer result into a String
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+
+            rd.close();
+            conn.disconnect();
+
+            this.source = sb.toString();
+
+        } catch (MalformedURLException e) {
+            this.source = "Malformed URL";
+            e.printStackTrace();
+        } catch (IOException e) {
+            this.source = "IO Exception";
+            e.printStackTrace();
+        }
+
+        return this.source;
+    }
 }
