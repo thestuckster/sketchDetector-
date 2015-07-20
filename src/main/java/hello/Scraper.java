@@ -7,6 +7,8 @@ public class Scraper {
     private final long id;
     private final String url;
     private String source;
+    private boolean containsEval = false;
+    private boolean containsDocumentWrite = false;
 
     public Scraper(long id, String url) {
         this.id = id;
@@ -26,12 +28,24 @@ public class Scraper {
         return this.source;
     }
 
+    public boolean getContainsEval() {
+        return this.containsEval;
+    }
+
+    public boolean getContainsDocumentWrite() {
+        return this.containsDocumentWrite;
+    }
+
+    private void checkForFlags(String src) {
+        String ev = "eval(";
+        String dw = "document.write(";
+
+        this.containsEval = src.contains(ev);
+        this.containsDocumentWrite = src.contains(dw);
+    }
+
     private void scrape() {
         String line;
-
-        if (this.url.equals("")) {
-            this.source = "no url given";
-        }
 
         try {
             URL url = new URL(this.url);
@@ -52,10 +66,16 @@ public class Scraper {
             rd.close();
             conn.disconnect();
 
+            checkForFlags(sb.toString());
             this.source = sb.toString();
 
         } catch (MalformedURLException e) {
-            this.source = "Malformed URL";
+            if(this.url.equals("")) {
+                this.source = "No URL Given";
+            } else {
+                this.source = "Malformed URL";
+            }
+
             e.printStackTrace();
         } catch (IOException e) {
             this.source = "IO Exception";
