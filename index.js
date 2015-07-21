@@ -1,7 +1,10 @@
-$("button").click(function() {
-	var url = $("#url").val();
-	$.get( "ajax/test.html", function( data ) {
-  		$( ".result" ).html( data );
-  		alert( "Load was performed." );
+$(document).ready(function() {
+	$("button").click(function() {
+		var url = $("#url").val();
+		var scrape = "localhost:8080/scrape?url=" + url;
+
+		$.get(scrape, function(data) {
+	  		alert(data);
+		});
 	});
-})
+});
