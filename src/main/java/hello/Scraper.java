@@ -5,11 +5,12 @@ import java.net.*;
 
 public class Scraper {
     private final long id;
+    private String error;
     private final String url;
     private String source;
-    private String error;
     private boolean containsEval = false;
     private boolean containsDocumentWrite = false;
+    private boolean containsIFrame = false;
 
     public Scraper(long id, String url) {
         this.id = id;
@@ -18,6 +19,10 @@ public class Scraper {
 
     public long getId() {
         return this.id;
+    }
+
+    public String getError() {
+        return this.error;
     }
 
     public String getUrl() {
@@ -37,16 +42,18 @@ public class Scraper {
         return this.containsDocumentWrite;
     }
 
-    public String getError() {
-        return this.error;
+    public boolean getContainsIFrame() {
+        return this.containsIFrame;
     }
 
     private void checkForFlags(String src) {
-        String ev = "eval(";
-        String dw = "document.write(";
+        String ev  = "eval(";
+        String dw  = "document.write(";
+        String ifr = "<iframe";
 
         this.containsEval = src.contains(ev);
         this.containsDocumentWrite = src.contains(dw);
+        this.containsIFrame = src.contains(ifr);
     }
 
     private void scrape() {
