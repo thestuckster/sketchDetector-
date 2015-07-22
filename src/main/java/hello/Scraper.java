@@ -7,6 +7,7 @@ public class Scraper {
     private final long id;
     private final String url;
     private String source;
+    private String error;
     private boolean containsEval = false;
     private boolean containsDocumentWrite = false;
 
@@ -36,6 +37,10 @@ public class Scraper {
         return this.containsDocumentWrite;
     }
 
+    public String getError() {
+        return this.error;
+    }
+
     private void checkForFlags(String src) {
         String ev = "eval(";
         String dw = "document.write(";
@@ -52,7 +57,7 @@ public class Scraper {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             if (conn.getResponseCode() != 200) {
-                this.source = "bad connection to site";
+                this.error = "bad connection to site";
             }
 
             //buffer result into a String
@@ -71,14 +76,14 @@ public class Scraper {
 
         } catch (MalformedURLException e) {
             if(this.url.equals("")) {
-                this.source = "No URL Given";
+                this.error = "No URL Given";
             } else {
-                this.source = "Malformed URL";
+                this.error = "Malformed URL";
             }
 
             e.printStackTrace();
         } catch (IOException e) {
-            this.source = "IO Exception";
+            this.error = "IO Exception";
             e.printStackTrace();
         }
 
