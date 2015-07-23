@@ -1,22 +1,3 @@
-function getCount(obj) {
-	var count = 0;
-	console.warn("DO I GET FIRED???");
-
-	if (obj["containsDocumentWrite"] === true) {
-		count++;
-		console.log(count);
-	}
-	if (obj["containsEval"] === true) {
-		count++;
-		console.log(count);
-	}
-	if (obj["containsIFrame"] === true) {
-		count++;
-		console.log(count);
-	}
-	return count;
-}
-
 $(document).ready(function() {
     $("button").click(function() {
       var url = $("#url").val();
