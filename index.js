@@ -16,7 +16,7 @@ $(document).ready(function() {
             count = count + 1;
           }
         });
-        
+
         if (count === 0) {
           alert("This site is safe!");
         } else if (count === 1) {
@@ -30,8 +30,9 @@ $(document).ready(function() {
     });
   });
 
-  $("url").bind("keypress",function(e) {
-    if(e.keyCode == 13) {
+  $("body").keypress(function(e) {
+    if(e.which == 13) {
+      console.log("ENTER");
       var url = $("#url").val();
       var scrape = "http://localhost:8080/scrape?url=" + url;
 
@@ -47,7 +48,7 @@ $(document).ready(function() {
               count = count + 1;
             }
           });
-        
+
           if (count === 0) {
             alert("This site is safe!");
           } else if (count === 1) {
