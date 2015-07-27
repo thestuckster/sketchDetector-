@@ -5,7 +5,6 @@ import java.net.*;
 
 public class Scraper {
     private final long id;
-    private String error;
     private final String url;
     private String source;
     private boolean containsEval = false;
@@ -19,10 +18,6 @@ public class Scraper {
 
     public long getId() {
         return this.id;
-    }
-
-    public String getError() {
-        return this.error;
     }
 
     public String getUrl() {
@@ -64,7 +59,8 @@ public class Scraper {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             if (conn.getResponseCode() != 200) {
-                this.error = "bad connection to site";
+                this.source = "bad connection to site";
+                return;
             }
 
             //buffer result into a String
@@ -83,15 +79,19 @@ public class Scraper {
 
         } catch (MalformedURLException e) {
             if(this.url.equals("")) {
-                this.error = "No URL Given";
+                this.source = "No URL Given";
+                e.printStackTrace();
+                return;
             } else {
-                this.error = "Malformed URL";
+                this.source = "Malformed URL";
+                e.printStackTrace();
+                return;
             }
-
-            e.printStackTrace();
+            
         } catch (IOException e) {
-            this.error = "IO Exception";
+            this.source = "IO Exception";
             e.printStackTrace();
+            return;
         }
 
     }
