@@ -87,7 +87,7 @@ public class Scraper {
                 e.printStackTrace();
                 return;
             }
-            
+
         } catch (IOException e) {
             this.source = "IO Exception";
             e.printStackTrace();
