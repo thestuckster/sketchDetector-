@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("button").click(function() {
     var url = $("#url").val();
-    var scrape = "http://localhost:8080/scrape?url=" + url;
+    var scrape = "http://45.55.158.16:8080/scrape?url=" + url;
 
     $.ajax({
       url: scrape,
@@ -42,7 +42,7 @@ $(document).ready(function() {
   $("body").keypress(function(e) {
     if (e.which == 13) {
       var url = $("#url").val();
-      var scrape = "http://localhost:8080/scrape?url=" + url;
+      var scrape = "http://45.55.158.16:8080/scrape?url=" + url;
 
       $.ajax({
         url: scrape,
