@@ -13,6 +13,8 @@ $(document).ready(function() {
           alert("bad connection to site");
         } else if (data.source === "Malformed URL") {
           alert("Bad URL. Please try again.");
+        } else if(data.source === "IO Exception") {
+          alert("Bad URL. Please try again.");
         } else {
 
           var count = 0;
@@ -51,6 +53,8 @@ $(document).ready(function() {
           if (data.source === "bad connection to site") {
             alert("bad connection to site");
           } else if (data.source === "Malformed URL") {
+            alert("Bad URL. Please try again.");
+          } else if (data.source === "IO Exception") {
             alert("Bad URL. Please try again.");
           } else {
 
